@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: print
-        run: echo ${{ inputs.msg }
+        run: echo ${{ inputs.msg }}
       - name: get org/repo 
         run: echo "org - ${{ github.event.organization }}, repo - ${{ github.event.repository }}"
         
