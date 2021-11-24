@@ -1,0 +1,17 @@
+# Test
+name: Reusable workflow test3
+on:
+  workflow_call:
+    inputs:
+      msg:
+        description: input message to print
+        required: true
+        type: string
+
+jobs:
+  job1:
+    name: prints input message
+    runs-on: ubuntu-latest
+    steps:
+      - name: print
+        run: echo ${{ inputs.msg }}
