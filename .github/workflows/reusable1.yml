@@ -16,6 +16,4 @@ jobs:
       - name: print
         run: echo ${{ inputs.msg }}
       - name: get org/repo 
-        run: echo "org - ${{ github.event.organization }}, repo - ${{ github.event.repository }}"
-        
-            
+        run: echo "org - ${{ github.repository }}, repo - ${{ github.repository_owner }}"
