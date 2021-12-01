@@ -14,18 +14,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: test
-        if: ${{ github.repository_owner }} == "lamelameo"
+        if: ${{ github.repository_owner == 'lamelameo' }}
         run: echo hi ${{ github.repository_owner }}
       - name: reject
-        if: ${{ github.repository_owner }} != "lamelameo"
+        if: ${{ github.repository_owner != 'lamelameo' }}
         run: |
           echo ${{ github.repository_owner }} does not have permission to use this workflow
           exit 1
   job1:
+    needs: org-specific-workflow
     name: prints input message, with name of org and repo of caller workflow
     runs-on: ubuntu-latest
     steps:
       - name: print
         run: echo ${{ inputs.msg }}
       - name: get org/repo 
-        run: echo "org - ${{ github.repository }}, repo - ${{ github.repository_owner }}"
+        run: echo "owner/repo - ${{ github.repository }}, owner - ${{ github.repository_owner }}"
