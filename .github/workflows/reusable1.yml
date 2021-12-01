@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: test
-        if: ${{ github.repository_owner == "lamelameo" }}
+        if: ${{ github.repository_owner }} == "lamelameo"
         run: echo hi ${{ github.repository_owner }}
       - name: reject
-        if: ${{ github.repository_owner != "lamelameo" }}
+        if: ${{ github.repository_owner }} != "lamelameo"
         run: |
           echo ${{ github.repository_owner }} does not have permission to use this workflow
           exit 1
