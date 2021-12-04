@@ -1,0 +1,29 @@
+name:  # Add your workflow name
+on:  # Add events to trigger this workflow
+  push:
+    branches: [ $default-branch ]  # specific branches
+    paths:  # specific files
+      - .github/workflows/*
+
+jobs:  # specify jobs to run, by default jobs run in parallel unless forced to depend on other jobs with "needs"
+  print-message:
+    runs-on: ubuntu-latest  # OS to run on
+    if: always()  # set a condition to run job
+    outputs:
+      message: ${{ steps.test-script.outputs.msg }}
+    steps:  # Steps are run sequentially, they are building blocks of work
+      - name: test script
+        run: echo hi
+      - name: set output
+        run: echo "::set-output name=msg::hi from previous job"  # we can set an output to be accessed in other steps or jobs
+  parallel-job:  # this job will run in parallel to print-message
+    runs-on: window-2019
+    steps:
+      - name: powershell script
+        run: echo "hello"
+  conditional-job:
+    runs-on: ubunutu-latest
+    needs: print-message  # this job will run after print-message completes
+    steps:
+      - name: print previous jobs message
+        run: echo ${{ needs.print-message.outputs.message }}  # We can get output of jobs we rely on
